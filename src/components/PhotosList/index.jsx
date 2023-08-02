@@ -1,12 +1,13 @@
 import { PhotoCard } from "./PhotoCard";
+import styles from "./style.module.scss";
 
-export const PhotosList = ({ photoList }) => {
+export const PhotosList = ({ photoList, addFavorite }) => {
    return (
       <section>
          <div className="container">
-            <ul>
+            <ul className={styles.photoList}>
                {photoList.map((photo) => (
-                  <PhotoCard key={photo.id} img={photo.img} bio={photo.bio} />
+                  <PhotoCard key={photo.id} photo={photo} addFavorite={addFavorite} />
                ))}
             </ul>
          </div>

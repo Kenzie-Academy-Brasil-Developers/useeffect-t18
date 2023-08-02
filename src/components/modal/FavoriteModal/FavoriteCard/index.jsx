@@ -1,8 +1,12 @@
-export const FavoriteCard = ({img, bio}) => {
+import { MdOutlineDelete } from "react-icons/md"
+
+export const FavoriteCard = ({favorite: {id, img, bio}, removeFavorite}) => {    
     return(
         <li>
             <img src={img} alt={bio} />
-            <button>Botão fechar</button>
+            <button onClick={() => removeFavorite(id)}>
+                <MdOutlineDelete size={21} />
+            </button>
         </li>
     )
 }
