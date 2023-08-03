@@ -11,7 +11,7 @@ export const FavoriteModal = ({ setVisible, favoriteList, removeFavorite }) => {
 
    useKeydown("Escape", () => {
       setVisible(false);
-   })
+   });
 
    return (
       <div className={styles.overlayBox} role="dialog">
@@ -20,19 +20,20 @@ export const FavoriteModal = ({ setVisible, favoriteList, removeFavorite }) => {
                <MdClose size={21} />
             </button>
             <h2 className="title">favoritos</h2>
-            <ul>
-               {favoriteList.length > 0 ? (
-                  favoriteList.map((favorite) => (
+
+            {favoriteList.length > 0 ? (
+               <ul>
+                  {favoriteList.map((favorite) => (
                      <FavoriteCard
                         key={favorite.id}
                         favorite={favorite}
                         removeFavorite={removeFavorite}
                      />
-                  ))
-               ) : (
-                  <p>Nenhum favorito adicionado</p>
-               )}
-            </ul>
+                  ))}
+               </ul>
+            ) : (
+               <p className="paragraph">Nenhum favorito adicionado</p>
+            )}
          </div>
       </div>
    );
