@@ -4,6 +4,7 @@ import { HomePage } from "./pages/HomePage";
 import "./styles/index.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import { PhotoModal } from "./components/modal/PhotoModal";
 
 function App() {
    const [isVisible, setVisible] = useState(false);
@@ -11,10 +12,11 @@ function App() {
    const [favoriteList, setFavoriteList] = useState(
       localFavoriteList ? JSON.parse(localFavoriteList) : []
    );
+   // as vezes eu vou ter um objeto de foto - VERDADEIRO
+   // as vezes eu vou ter nulo - FALSO
+   const [photoList, setPhotoList] = useState([]);
+   const [currentPhoto, setCurrentPhoto] = useState(null);
 
-   //Cada vez que um estado listado na lista de dependencias atualizar, ele vai executa função
-   // EFEITO DE ATUALIZAÇÃO: Variável mudou, função disparar
-   // DISPARA UMA VEZ QUANDO O COMPONENTE
    useEffect(() => {
       localStorage.setItem("@FAVORITELIST", JSON.stringify(favoriteList));
    }, [favoriteList]);
@@ -37,10 +39,47 @@ function App() {
       toast.success("Favorito removido com sucesso com sucesso.");
    };
 
+   const nextPhoto = (currentPhotoId) => {
+      /*
+      const findPhoto = photoList[index];
+      const newPhoto = { ...findPhoto, index}
+      */
+      const newPhoto = photoList.find((photo) => photo.id === currentPhotoId + 1);
+      setCurrentPhoto(newPhoto);
+   };
+
+   const prevPhoto = (currentPhotoId) => {
+      const newPhoto = photoList.find((photo) => photo.id === currentPhotoId - 1);
+      setCurrentPhoto(newPhoto);
+   };
+
+   const closeModal = () => {
+      setCurrentPhoto(null);
+   }
+
    return (
       <>
          {/* <button onClick={() => setFavoriteList([])}>Limpar todos os favoritos</button> */}
-         <HomePage addFavorite={addFavorite} setVisible={setVisible} />
+         <HomePage
+            photoList={photoList}
+            setPhotoList={setPhotoList}
+            setVisible={setVisible}
+            setCurrentPhoto={setCurrentPhoto}
+         />
+
+         {currentPhoto ? (
+            <PhotoModal
+               addFavorite={addFavorite}
+               removeFavorite={removeFavorite}
+               favoriteList={favoriteList}
+               photoList={photoList}
+               photo={currentPhoto}
+               nextPhoto={nextPhoto}
+               prevPhoto={prevPhoto}
+               closeModal={closeModal}
+            />
+         ) : null}
+
          {isVisible ? (
             <FavoriteModal
                favoriteList={favoriteList}

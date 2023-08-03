@@ -1,0 +1,32 @@
+.overlayBox{
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--color-black20);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .modalBox{
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        background: var(--color-white);
+        padding: 2rem;
+        height: 100vh;
+
+        .closeButton{
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        ul{
+            margin-top: 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+    }
+}

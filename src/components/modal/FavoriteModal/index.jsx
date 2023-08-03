@@ -1,14 +1,25 @@
 import { FavoriteCard } from "./FavoriteCard";
 import { MdClose } from "react-icons/md";
+import styles from "./style.module.scss";
+import { useOutclick } from "../../../hooks/useOutclick";
+import { useKeydown } from "../../../hooks/useKeydown";
 
 export const FavoriteModal = ({ setVisible, favoriteList, removeFavorite }) => {
+   const ref = useOutclick(() => {
+      setVisible(false);
+   });
+
+   useKeydown("Escape", () => {
+      setVisible(false);
+   })
+
    return (
-      <div role="dialog">
-         <div>
-            <button onClick={() => setVisible(false)}>
+      <div className={styles.overlayBox} role="dialog">
+         <div ref={ref} className={styles.modalBox}>
+            <button onClick={() => setVisible(false)} className={styles.closeButton}>
                <MdClose size={21} />
             </button>
-            <h2>favoritos</h2>
+            <h2 className="title">favoritos</h2>
             <ul>
                {favoriteList.length > 0 ? (
                   favoriteList.map((favorite) => (

@@ -1,4 +1,25 @@
-.photoList{
+.photoList {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+
+    img {
+        width: 100%;
+        object-fit: cover;
+        height: clamp(200px, 40vw, 520px);
+    }
+
+    @media (min-width: 800px) {
+        grid-template-columns: repeat(4, 1fr);
+
+        & li:nth-child(6n - 3) {
+            grid-column-start: 3;
+            grid-column-end: 5;
+        }
+
+        & li:nth-child(6n - 2) {
+            grid-column-start: 1;
+            grid-column-end: 3;
+        }
+    }
 }

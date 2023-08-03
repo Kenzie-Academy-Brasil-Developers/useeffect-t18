@@ -4,11 +4,9 @@ import { PhotosList } from "../../components/PhotosList";
 import { photoApi } from "../../services/api";
 import { useEffect, useState } from "react";
 
-export const HomePage = ({ addFavorite, setVisible }) => {
+export const HomePage = ({ photoList, setPhotoList, setVisible, setCurrentPhoto }) => {
    const [loading, setLoading] = useState(false);
-   const [photoList, setPhotoList] = useState([]);
 
-   //MONTAGEM - componente montou "brotou em tela", função disparar
    useEffect(() => {
       const getPhotos = async () => {
          try {
@@ -23,7 +21,6 @@ export const HomePage = ({ addFavorite, setVisible }) => {
       };
       getPhotos();
    }, []);
-   
 
    return (
       <>
@@ -32,7 +29,10 @@ export const HomePage = ({ addFavorite, setVisible }) => {
             {loading ? (
                <LoadingList />
             ) : (
-               <PhotosList addFavorite={addFavorite} photoList={photoList} />
+               <PhotosList
+                  photoList={photoList}
+                  setCurrentPhoto={setCurrentPhoto}
+               />
             )}
          </main>
       </>
